@@ -1,7 +1,8 @@
 package access;
 
 import java.util.ArrayList;
-import model.pilotosModel;
+
+import model.carrerasModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -11,49 +12,43 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 
-public class pilotosDAO {
+public class carrerasDAO {
 
     //CONEXION A LA BASE DE DATOS
 
     private Connection conn = null;
 
-    public ArrayList<pilotosModel> getAllPilotos(){
-        ArrayList<pilotosModel> pilotos = new ArrayList();
+    public ArrayList<carrerasModel> getAllCarreras(){
+        ArrayList<carrerasModel> carreras = new ArrayList();
+
         try{
             if(conn == null)
                 conn = ConnectionDB.getConnection();
 
-            String sql = "SELECT pi.codigoPiloto, pi.nombre, pi.millasRecorridas, pi.combustibleUsado, es.codigo_escuderia FROM piloto pi JOIN escuderia es ON " +
-                    "es.codigo_escuderia = pi.codigo_escuderia_fk";
-                    ;
-
-                    //"es.nombre, es.patrocinador "
-                    //+
-                    //"FROM piloto pi JOIN escuderia es "
-                    //+ "ON pi.codigo_escuderia_fk = es.codigo_escuderia";
+            String sql = "SELECT ca.name, ca.capacity, ca.capability, ca.difficulty FROM carreras ca";
             Statement statament = conn.createStatement();
             ResultSet result = statament.executeQuery(sql);  //error statement
             while(result.next()){
-                pilotosModel piloto = new pilotosModel(result.getInt(1),result.getString(2), result.getFloat(3), result.getInt(4), result.getInt(5));
-                pilotos.add(piloto);
+                carrerasModel carrera = new carrerasModel(result.getString(1),result.getInt(2), result.getString(3), result.getFloat(4));
+                carreras.add(carrera);
             }
         }
         catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "Código : " + ex.getErrorCode()
                     + "\nError :" + ex.getMessage());
         }
-        return pilotos;
+        return carreras;
     }
 
-    public ArrayList<pilotosModel> getPiloto(int codigoPiloto){
+    public ArrayList<carrerasModel> getCarrera(String name){
 //        pilotosModel piloto = null;
         try {
             if(conn == null)
                 conn = ConnectionDB.getConnection();
 
-            String sql = "SELECT nombre FROM piloto WHERE codigo_piloto = 872;";
+            String sql = "SELECT name FROM piloto WHERE name = ?;";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, codigoPiloto);
+            statement.setString(1, name);
             ResultSet result = statement.executeQuery(sql);
 
             //tengo error en el WHILE
@@ -70,20 +65,19 @@ public class pilotosDAO {
         return null;
     }
 
-    public void agregarPiloto(pilotosModel piloto){
+    public void addCarrera(carrerasModel carrera){
         try{
             if (conn == null)
                 conn = ConnectionDB.getConnection();
 
-            String sql = "INSERT INTO piloto(codigo_piloto, nombre , millas_recorridas ,combustible_usado ,codigo_escuderia_fk)"
-                    + "VALUES(?, ?, ?, ?, ?);";
+            String sql = "INSERT INTO carreras(name, capacity, capability, difficulty)"
+                    + "VALUES(?, ?, ?, ?);";
 
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1,piloto.getCodigoPiloto());
-            statement.setString(2,piloto.getNombre());
-            statement.setFloat(3,piloto.getMillasRecorridas());
-            statement.setInt(4,piloto.getCombustibleUsado());
-            statement.setInt(5,piloto.getCodigoEscuderia_fk());
+            statement.setString(1,carrera.getName());
+            statement.setInt(2,carrera.getCapacity());
+            statement.setString(3,carrera.getCapability());
+            statement.setFloat(4,carrera.getDifficulty());
             int rowsInserted = statement.executeUpdate();
 
             if (rowsInserted > 0)
@@ -97,15 +91,15 @@ public class pilotosDAO {
         }
     }
 
-    public void actualizaPiloto(pilotosModel piloto){
+    public void UpdateCarrera(carrerasModel carrera){
 
         try {
             if(conn == null)
                 conn = ConnectionDB.getConnection();
-            String sql = "UPDATE piloto SET millas_recorridas = 124009.2 WHERE codigo_piloto = 872;";
+            String sql = "UPDATE carrera SET capacity = 124009 WHERE name = 'Vitaguata';";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setFloat(1, piloto.getMillasRecorridas());
-            statement.setInt(4, piloto.getCodigoPiloto());
+            statement.setInt(1, carrera.getCapacity());
+            statement.setString(4, carrera.getName());
 
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0)
@@ -118,13 +112,13 @@ public class pilotosDAO {
         }
     }
 
-    public void eliminarPiloto(int codigoPiloto){
+    public void deleteCarrera(String name){
         try {
             if(conn == null)
                 conn = ConnectionDB.getConnection();
-            String sql = "DELETE FROM piloto WHERE codigo_piloto=?;";
+            String sql = "DELETE FROM piloto WHERE name=?;";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, codigoPiloto);
+            statement.setString(1, name);
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
                 JOptionPane.showMessageDialog(null, "El registro fue borrado exitosamente !");

@@ -14,13 +14,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import model.pilotosModel;
+//import model.pilotosModel;
+import model.carrerasModel;
 
 public class ControlsPanel extends JPanel {
 
-    private JLabel                       lblPiloto;
-    private JComboBox<pilotosModel>       cbxPilotoList;
-    private JLabel                       lblPresentations;
+//    private JLabel                       lblPiloto;
+//    private JComboBox<pilotosModel>       cbxPilotoList;
+    private JLabel                       lblCarrera;
+    private JComboBox<carrerasModel>     cbxCarreraList;
     //private JComboBox<PresentationModel> cbxPresentationsList;
     //  private JLabel                       lblName;
     //private JTextField                   txtName;
@@ -47,19 +49,26 @@ public class ControlsPanel extends JPanel {
         InitialData initialData = new InitialData();
 
         // Complete ArtPieces info
-        this.setTblResults(initialData.getPilotos());
+//        this.setTblResults(initialData.getPilotos());
+        this.setTblResults(initialData.getCarreras());
 
         // Museum selection
-        this.lblPiloto = new JLabel("Pilotos");
-        add(this.getLblPiloto());
+//        this.lblPiloto = new JLabel("Pilotos");
+//        add(this.getLblPiloto());
+        this.lblCarrera = new JLabel("Carreras");
+        add(this.getLblCarrera());
 
-        this.cbxPilotoList = new JComboBox();
-        this.cbxPilotoList.setModel(new DefaultComboBoxModel<>(initialData.getPilotos().toArray(new pilotosModel[initialData.getPilotos().size()])));
-        this.cbxPilotoList.setSelectedIndex(0);
-        add(this.getCbxPilotoList());
+//        this.cbxPilotoList = new JComboBox();
+//        this.cbxPilotoList.setModel(new DefaultComboBoxModel<>(initialData.getPilotos().toArray(new pilotosModel[initialData.getPilotos().size()])));
+//        this.cbxPilotoList.setSelectedIndex(0);
+//        add(this.getCbxPilotoList());
+        this.cbxCarreraList = new JComboBox();
+        this.cbxCarreraList.setModel(new DefaultComboBoxModel<>(initialData.getCarreras().toArray(new carrerasModel[initialData.getCarreras().size()])));
+        this.cbxCarreraList.setSelectedIndex(0);
+        add(this.getCbxCarreraList());
 
         ChangeEvent changeEvent = new ChangeEvent(this);
-        this.getCbxPilotoList().addActionListener(changeEvent);
+        this.getCbxCarreraList().addActionListener(changeEvent);
 
 
         // Exhibition selection
@@ -95,15 +104,24 @@ public class ControlsPanel extends JPanel {
     /**
      * @return the lblMuseums
      */
-    public JLabel getLblPiloto() {
-        return lblPiloto;
+//    public JLabel getLblPiloto() {
+//        return lblPiloto;
+//    }
+
+    public JLabel getLblCarrera() {
+        return lblCarrera;
     }
+
 
     /**
      * @return the cbxMuseumsList
      */
-    public JComboBox getCbxPilotoList() {
-        return cbxPilotoList;
+//    public JComboBox getCbxPilotoList() {
+//        return cbxPilotoList;
+//    }
+
+    public JComboBox getCbxCarreraList() {
+        return cbxCarreraList;
     }
 
     /**
@@ -160,14 +178,25 @@ public class ControlsPanel extends JPanel {
 //     * @param artPieces
 //     */
 
-    public void setTblResults(ArrayList<pilotosModel> pilotoResults) {
-        String[] headers = {"Piloto ID", "Nombre", "Millas Recorridas", "Combustible Usado", "Escuderia ID"};
+//    public void setTblResults(ArrayList<pilotosModel> pilotoResults) {
+//        String[] headers = {"Piloto ID", "Nombre", "Millas Recorridas", "Combustible Usado", "Escuderia ID"};
+//        this.tblResults.removeAll();
+//        DefaultTableModel tableModel = new DefaultTableModel();
+//        tableModel.setColumnIdentifiers(headers);
+//        this.tblResults.setModel(tableModel);
+//        for(int i=0; i<pilotoResults.size(); i++){
+//            tableModel.addRow(pilotoResults.get(i).toArray() );
+//        }
+//    }
+
+    public void setTblResults(ArrayList<carrerasModel> carrerasResult) {
+        String[] headers = {"Nombre", "Capacidad", "Bajo LLuvia", "Dificultad"};
         this.tblResults.removeAll();
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers(headers);
         this.tblResults.setModel(tableModel);
-        for(int i=0; i<pilotoResults.size(); i++){
-            tableModel.addRow(pilotoResults.get(i).toArray() );
+        for(int i=0; i<carrerasResult.size(); i++){
+            tableModel.addRow(carrerasResult.get(i).toArray() );
         }
     }
 
