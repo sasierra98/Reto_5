@@ -40,29 +40,30 @@ public class carrerasDAO {
         return carreras;
     }
 
-    public ArrayList<carrerasModel> getCarrera(String name){
-//        pilotosModel piloto = null;
+    public carrerasModel getCarrera(){
+        carrerasModel carreras = null;
         try {
             if(conn == null)
                 conn = ConnectionDB.getConnection();
 
             String sql = "SELECT name FROM piloto WHERE name = ?;";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, name);
+            //statement.setString(1, "");
             ResultSet result = statement.executeQuery(sql);
 
             //tengo error en el WHILE
 
-//            while (result.next()) {
-//                piloto = new pilotoModel(codigoPiloto, result.getInt(1));
-//                break;
-//            }
+            while (result.next()) {
+                carreras = new carrerasModel(result.getString(1));
+                break;
+            }
         }
         catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Código : " + ex.getErrorCode()
                     + "\nError :" + ex.getMessage());
         }
-        return null;
+        System.out.println(carreras);
+        return carreras;
     }
 
     public void addCarrera(carrerasModel carrera){
@@ -112,13 +113,14 @@ public class carrerasDAO {
         }
     }
 
-    public void deleteCarrera(String name){
+    public void deleteCarrera(carrerasModel name){
+        System.out.println("entre");
         try {
             if(conn == null)
                 conn = ConnectionDB.getConnection();
-            String sql = "DELETE FROM piloto WHERE name=?;";
+            String sql = "DELETE FROM carreras WHERE name=?;";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, name);
+            statement.setString(1, name.getName());
             int rowsDeleted = statement.executeUpdate();
             if (rowsDeleted > 0) {
                 JOptionPane.showMessageDialog(null, "El registro fue borrado exitosamente !");

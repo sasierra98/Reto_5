@@ -65,6 +65,20 @@ public class ClickEvent implements ActionListener {
             carrerasDAO CarrerasDAO = new carrerasDAO();
             CarrerasDAO.addCarrera(carrera);
         }
+
+        if (actionEvent.getSource() == this.controlsPanel.getBtnDelete()) {
+            String name = this.controlsPanel.getTxtName().getText();
+//            int capacity = Integer.parseInt((this.controlsPanel.getTxtCapacity().getText()));
+//            String capability = this.controlsPanel.getTxtCapability().getText();
+//            float difficulty = Float.parseFloat(this.controlsPanel.getTxtDifficulty().getText());
+
+            carrerasModel carrera = new carrerasModel(name);
+
+            //System.out.println(idMuseum + " " + idPresentation + " " + datePresentation + " " + artPieceName);
+            carrerasDAO CarrerasDAO = new carrerasDAO();
+            CarrerasDAO.deleteCarrera(carrera);
+        }
+
     }
 }
 

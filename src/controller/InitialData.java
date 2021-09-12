@@ -26,5 +26,9 @@ public class InitialData {
         return carreras;
     }
 
+    public ArrayList<carrerasModel> getCarrera() {
+        return carreras;
+    }
+
 
 }

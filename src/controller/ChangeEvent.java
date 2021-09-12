@@ -38,14 +38,17 @@ public class ChangeEvent implements ActionListener {
             carrerasDAO  CarrerasDAO = new carrerasDAO();
             ArrayList<carrerasModel> carreras = null;
 
-            String carrera = ((carrerasModel)this.controlsPanel.getCbxCarreraList().getSelectedItem()).getName();
-            if( carrera == "") {
-                carreras = CarrerasDAO.getAllCarreras();
-                carreras.add(0, new carrerasModel("Todas las presentaciones"));
-            }
-            else {
-                carreras = CarrerasDAO.getCarrera(carrera);
-            }
+            String carreraName = ((carrerasModel)this.controlsPanel.getCbxCarreraList().getSelectedItem()).getName();
+
+            carreras = CarrerasDAO.getAllCarreras();
+            carreras.add(0, new carrerasModel("Todas las presentaciones"));
+//            if( carreraName == "") {
+//                carreras = CarrerasDAO.getAllCarreras();
+//                carreras.add(0, new carrerasModel("Todas las presentaciones"));
+//            }
+//            else {
+//                carreras = CarrerasDAO.getCarrera(carreras);
+//            }
 //            this.controlsPanel.setCbxPresentationsList(Piloto);
         }
 

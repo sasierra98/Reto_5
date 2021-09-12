@@ -25,6 +25,7 @@ public class ControlsPanel extends JPanel{
     private JComboBox<carrerasModel> cbxCarreraList;
     private JButton btnSearch;
     private JButton btnAddCarrera;
+    private JButton btnDelete;
     private JTable tblResults;
     private JLabel lblName;
     private JTextField txtName;
@@ -56,10 +57,10 @@ public class ControlsPanel extends JPanel{
         add(this.getLblCarrera());
 
         this.cbxCarreraList = new JComboBox();
-        this.cbxCarreraList.setModel(new DefaultComboBoxModel<>(initialData.getCarreras().toArray(new carrerasModel[initialData.getCarreras().size()])));
-        this.cbxCarreraList.setSelectedIndex(0);
+        this.cbxCarreraList.setModel(new DefaultComboBoxModel<>(initialData.getCarrera().toArray(new carrerasModel[initialData.getCarrera().size()])));
+        this.cbxCarreraList.setSelectedIndex(1);
         add(this.getCbxCarreraList());
-
+//
         ChangeEvent changeEvent = new ChangeEvent(this);
         this.getCbxCarreraList().addActionListener(changeEvent);
 
@@ -69,6 +70,11 @@ public class ControlsPanel extends JPanel{
 
         ClickEvent clickEvent = new ClickEvent(this);
         this.btnSearch.addActionListener(clickEvent);
+
+        // Delete button
+        this.btnDelete = new JButton("Borrar");
+        add(this.btnDelete);
+        this.getBtnDelete().addActionListener(clickEvent);
 
         // Insert  button
         this.btnAddCarrera = new JButton("Agregar Nueva Carrera");
@@ -165,5 +171,7 @@ public class ControlsPanel extends JPanel{
     public JButton getBtnAddCarrera() {
         return btnAddCarrera;
     }
+
+    public JButton getBtnDelete() { return btnDelete; }
 
 }
