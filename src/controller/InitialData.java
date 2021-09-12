@@ -18,7 +18,7 @@ public class InitialData {
 //        this.pilotos.add( new pilotosModel("Todos los pilotos"));
         carrerasDAO carreras = new carrerasDAO();
         this.carreras = carreras.getAllCarreras();
-        this.carreras.add( new carrerasModel("Todas las carreras"));
+//        this.carreras.add( new carrerasModel("Todas las carreras"));
 
     }
 

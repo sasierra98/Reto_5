@@ -52,6 +52,19 @@ public class ClickEvent implements ActionListener {
 //            AddArtPiece addArtPieceView = new AddArtPiece();
 //            addArtPieceView.setVisible(true);
 //        }
+
+        if (actionEvent.getSource() == this.controlsPanel.getBtnAddCarrera()) {
+            String name = this.controlsPanel.getTxtName().getText();
+            int capacity = Integer.parseInt((this.controlsPanel.getTxtCapacity().getText()));
+            String capability = this.controlsPanel.getTxtCapability().getText();
+            float difficulty = Float.parseFloat(this.controlsPanel.getTxtDifficulty().getText());
+
+            carrerasModel carrera = new carrerasModel(name, capacity, capability, difficulty);
+
+            //System.out.println(idMuseum + " " + idPresentation + " " + datePresentation + " " + artPieceName);
+            carrerasDAO CarrerasDAO = new carrerasDAO();
+            CarrerasDAO.addCarrera(carrera);
+        }
     }
 }
 

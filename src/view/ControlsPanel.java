@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import model.carrerasModel;
 
-public class ControlsPanel extends JPanel implements ActionListener{
+public class ControlsPanel extends JPanel{
 
     private JLabel lblCarrera;
     private JComboBox<carrerasModel> cbxCarreraList;
@@ -73,8 +73,8 @@ public class ControlsPanel extends JPanel implements ActionListener{
         // Insert  button
         this.btnAddCarrera = new JButton("Agregar Nueva Carrera");
         add(this.getBtnAddCarrera());
-        //this.getBtnAddCarrera().addActionListener(clickEvent);
-        this.btnAddCarrera.addActionListener(this);
+        this.getBtnAddCarrera().addActionListener(clickEvent);
+//        this.btnAddCarrera.addActionListener(this);
 
         this.lblName = new JLabel("Nombre de la Carrera");
         add(this.lblName);
@@ -111,11 +111,44 @@ public class ControlsPanel extends JPanel implements ActionListener{
         return btnSearch;
     }
 
-    /**
-     * @return the tblResults
-     */
     public JTable getTblResults() {
         return tblResults;
+    }
+
+    public JTextField getTxtName() {
+        return txtName;
+    }
+
+    public void setTxtName(JTextField txtName) {
+        this.txtName = txtName;
+    }
+
+    public JTextField getTxtCapability() {
+        return txtCapability;
+    }
+
+    public void setTxtCapability(JTextField txtCapability) {
+        this.txtCapability = txtCapability;
+    }
+
+    public JTextField getTxtCapacity() {
+        return txtCapacity;
+    }
+
+    public void setTxtCapacity(JTextField txtCapacity) {
+        this.txtCapacity = txtCapacity;
+    }
+
+    public JLabel getLblCapacity() {
+        return lblCapacity;
+    }
+
+    public void setTxtDifficulty(JTextField txtDifficulty) {
+        this.txtDifficulty = txtDifficulty;
+    }
+
+    public JTextField getTxtDifficulty() {
+        return txtDifficulty;
     }
 
     public void setTblResults(ArrayList<carrerasModel> carrerasResult) {
@@ -133,21 +166,4 @@ public class ControlsPanel extends JPanel implements ActionListener{
         return btnAddCarrera;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        if (actionEvent.getSource() == this.btnAddCarrera) {
-            String name = (String) this.txtName.getText();
-            int capacity = Integer.parseInt((String) this.txtCapacity.getText());
-            String capability = (String) this.txtCapability.getText();
-            float difficulty = Float.parseFloat((String) this.txtDifficulty.getText());
-
-            carrerasModel carrera = new carrerasModel(name, capacity, capability, difficulty);
-
-
-            //System.out.println(idMuseum + " " + idPresentation + " " + datePresentation + " " + artPieceName);
-            carrerasDAO CarrerasDAO = new carrerasDAO();
-            CarrerasDAO.addCarrera(carrera);
-        }
-
-    }
 }
